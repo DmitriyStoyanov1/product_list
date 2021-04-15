@@ -2,7 +2,7 @@
   "name": "product-list",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://DmitriyStoyanov1.github.io/product-list",
+  "homepage": "http://DmitriyStoyanov1.github.io/product_list",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
