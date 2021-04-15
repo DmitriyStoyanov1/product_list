@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/product-list/static/css/main.eafa77da.chunk.css",
-    "main.js": "/product-list/static/js/main.6daa415d.chunk.js",
-    "main.js.map": "/product-list/static/js/main.6daa415d.chunk.js.map",
-    "runtime-main.js": "/product-list/static/js/runtime-main.386344b4.js",
-    "runtime-main.js.map": "/product-list/static/js/runtime-main.386344b4.js.map",
-    "static/js/2.618c3118.chunk.js": "/product-list/static/js/2.618c3118.chunk.js",
-    "static/js/2.618c3118.chunk.js.map": "/product-list/static/js/2.618c3118.chunk.js.map",
-    "index.html": "/product-list/index.html",
-    "static/css/main.eafa77da.chunk.css.map": "/product-list/static/css/main.eafa77da.chunk.css.map",
-    "static/js/2.618c3118.chunk.js.LICENSE.txt": "/product-list/static/js/2.618c3118.chunk.js.LICENSE.txt",
-    "static/media/close.e3219220.svg": "/product-list/static/media/close.e3219220.svg",
-    "static/media/dollar.e657e323.svg": "/product-list/static/media/dollar.e657e323.svg",
-    "static/media/shopping-bag.e6e36c70.svg": "/product-list/static/media/shopping-bag.e6e36c70.svg",
-    "static/media/x.bfb18d32.svg": "/product-list/static/media/x.bfb18d32.svg"
+    "main.css": "/product_list/static/css/main.eafa77da.chunk.css",
+    "main.js": "/product_list/static/js/main.6daa415d.chunk.js",
+    "main.js.map": "/product_list/static/js/main.6daa415d.chunk.js.map",
+    "runtime-main.js": "/product_list/static/js/runtime-main.14b5da93.js",
+    "runtime-main.js.map": "/product_list/static/js/runtime-main.14b5da93.js.map",
+    "static/js/2.618c3118.chunk.js": "/product_list/static/js/2.618c3118.chunk.js",
+    "static/js/2.618c3118.chunk.js.map": "/product_list/static/js/2.618c3118.chunk.js.map",
+    "index.html": "/product_list/index.html",
+    "static/css/main.eafa77da.chunk.css.map": "/product_list/static/css/main.eafa77da.chunk.css.map",
+    "static/js/2.618c3118.chunk.js.LICENSE.txt": "/product_list/static/js/2.618c3118.chunk.js.LICENSE.txt",
+    "static/media/close.e3219220.svg": "/product_list/static/media/close.e3219220.svg",
+    "static/media/dollar.e657e323.svg": "/product_list/static/media/dollar.e657e323.svg",
+    "static/media/shopping-bag.e6e36c70.svg": "/product_list/static/media/shopping-bag.e6e36c70.svg",
+    "static/media/x.bfb18d32.svg": "/product_list/static/media/x.bfb18d32.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.386344b4.js",
+    "static/js/runtime-main.14b5da93.js",
     "static/js/2.618c3118.chunk.js",
     "static/css/main.eafa77da.chunk.css",
     "static/js/main.6daa415d.chunk.js"
