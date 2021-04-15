@@ -1,23 +1,31 @@
 import React from "react";
-import './card.css';
+import { CircleButton } from '../button-circle';
+import { ReactComponent as DollarIcon} from '../../assets/dollar.svg';
+import { ReactComponent as ShoppingBagIcon} from '../../assets/shopping-bag.svg';
 
-import dollar from "../../assets/$.png";
+import styles from './card.module.css';
 
-function Card({onClick, name, category, price, id}) {
-  console.log(name, category, price, id)
+export function Card({ onClick, name, category, price, id }) {
+  const handleCardButtonClick = () => {
+    onClick && onClick(id)
+  }
+  
   return (
-    <div className="card__item">
-      <div className="card__item--type">{category}</div>
-      <div className="card__item--title">{name}</div>
-      <div className="card__item--price">
-        <div className="price-wrapper">
-          <img className="dollar-image" src={dollar} alt="dollar"/>
-          <div className="price">{price}</div>
+    <div className={styles.card}>
+      <div className={styles.category}>{category}</div>
+      <div className={styles.title}>{name}</div>
+
+      <div className={styles.priceWrapper}>
+        <div className={styles.price}>
+          <DollarIcon />
+          {price}
         </div>
-        <button onClick={() => onClick(id)} className="basket-button"/>
+
+        <CircleButton
+          icon={<ShoppingBagIcon />}
+          onClick={handleCardButtonClick}
+        />
       </div>
     </div>
   );
 }
-
-export default Card;

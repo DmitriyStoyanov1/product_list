@@ -1,97 +1,125 @@
-import React, { useEffect } from "react";
-import Modal from "react-modal";
-import axios from "axios";
+import React, { useEffect, useRef } from 'react';
+import Modal from 'react-modal';
+import { nanoid } from 'nanoid';
+import axios from 'axios';
 
-import Card from "../card/card";
-import dollar from "../../assets/$.png";
-import './app.css';
+import { Card } from '../card';
+import { Form } from '../form';
+import { Button } from '../button';
 
-const customStyles = {
+import { ReactComponent as DollarIcon } from '../../assets/dollar.svg';
+import { ReactComponent as ModalCloseIcon } from '../../assets/x.svg';
+
+import styles from './app.module.css';
+
+const MODAL_STYLES = {
   overlay: {
-    background: "rgba(0, 0, 0, 0.8)"
+    background: 'rgba(0, 0, 0, 0.8)',
   },
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)',
-    borderRadius          : '12px',
-    padding               : '30px 40px 52px',
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)',
+    borderRadius: '12px',
+    padding: '35px 32px',
+    overflow: 'visible',
+    width: '300px'
   }
-};
+}
+
+// На макете показывается именно 6 карточек, при это нет пагинации
+// Поэтому завел эту константу
+const CARDS_COUNT = 6;
 
 function App() {
+  const [data, setData] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isServerError, setIsServerError] = React.useState(false);
 
-  const CARDS = 6;
-
-  const [modalIsOpen,setIsOpen] = React.useState(false);
-  const [serverData,setServerData] = React.useState(null);
-  const [modalOpenCard,setModalOpenCard] = React.useState(null);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [currentProduct, setCurrentProduct] = React.useState({});
 
   useEffect(() => {
+    setIsLoading(true);
+
     axios.get('https://run.mocky.io/v3/b7d36eea-0b3f-414a-ba44-711b5f5e528e')
-    .then(function (response) {
-      const data = response.data.filter((_, i) => i < CARDS)
-      console.log(data, "data from server");
-      setServerData(data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
+      .then(response => {
+        const data = response.data.slice(0, CARDS_COUNT).map(item => ({ id: nanoid(7), ...item }));
+
+        setData(data);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsServerError(true);
+        setIsLoading(false);
+      })
   }, [])
 
-  console.log(serverData, 'server data')
-
-  function openModal(id) {
-    setModalOpenCard(serverData[id])
+  const handleGetCheapestProductClick = () => {
+    setCurrentProduct(data.sort((a, b) => b.price - a.price).slice(-1)[0]);
     setIsOpen(true);
   }
 
-  function closeModal(){
+  const openModal = (productId) => {
+    const choosedProduct = data.find(product => product.id === productId);
+
+    setCurrentProduct(choosedProduct);
+    setIsOpen(true);
+  }
+
+  const closeModal = () => {
     setIsOpen(false);
   }
 
   return (
-    <div className="app">
+    <div className={styles.app}>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
+        style={MODAL_STYLES}
+        ariaHideApp={false}
       >
-        { modalOpenCard &&
-        <>
-        <div className="card__item--type modal__item--type">{modalOpenCard.category}</div>
-        <div className="card__item--title modal__item--title">{modalOpenCard.name}</div>
-        <div className="card__item--price modal__item--price">
-          <div className="price-wrapper">
-            <img className="dollar-image" src={dollar} alt="dollar"/>
-            <div className="price">{modalOpenCard.price}</div>
+        <div className={styles.modalContent}>
+          <div className={styles.category}>{currentProduct.category}</div>
+          <div className={styles.title}>{currentProduct.name}</div>
+          <div className={styles.priceWrapper}>
+            <DollarIcon />
+            <div className={styles.price}>{currentProduct.price}</div>
           </div>
+
+          <span className={styles.modalCloseButton}>
+            <ModalCloseIcon onClick={closeModal}/>
+          </span>
+
+          <Form onSubmit={closeModal} />
         </div>
-        <form className="card__form">
-          <input className="card__form--input" id="name" type="text"/>
-          <input className="card__form--input" id="number"/>
-          <button className="buy-button modal-button" onClick={closeModal}>ORDER</button>
-        </form>
-        </>
-        }
       </Modal>
 
-      <div className="wrapper">
-      {serverData && serverData.map((item, i) => 
-        <Card 
-          onClick={openModal} 
-          id={i}
-          key={item}
-          name={item.name}
-          category={item.category}
-          price={item.price}
-      />)}
-      </div>
-      <button className="buy-button">Buy cheapest</button>
+      {!isLoading ? (
+        <React.Fragment>
+          <div className={styles.wrapper}>
+            {data.map(({ name, category, price, id }, i) => (
+              <Card
+                key={name}
+                id={id}
+                name={name}
+                category={category}
+                price={price}
+                onClick={openModal}
+              />
+            ))}
+          </div>
+          <Button onClick={handleGetCheapestProductClick}>Buy cheapest</Button>
+        </React.Fragment>
+      ) : (
+        <div>Загрузка...</div>
+      )}
+
+      {isServerError && (
+        <h1>Ошибка сервера. Приложение не работает :(</h1>
+      )}
     </div>
   );
 }

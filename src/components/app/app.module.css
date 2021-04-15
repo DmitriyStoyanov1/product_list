@@ -1,0 +1,67 @@
+.app {
+  display: grid;
+  grid-row-gap: 42px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 32px;
+}
+
+.modalContent {
+  position: relative;
+}
+
+.modalCloseButton {
+  position: absolute;
+  top: -44px;
+  right: -44px;
+  cursor: pointer;
+}
+
+.category {
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  opacity: 0.5;
+  text-align: center;
+}
+
+.title {
+  font-size: 36px;
+  line-height: 44px;
+  text-align: center;
+}
+
+.priceWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 8px;
+  padding-bottom: 13px;
+}
+
+.priceWrapper .price {
+  display: flex;
+  font-size: 48px;
+  padding-left: 5px;
+}
+
+.priceWrapper .price svg {
+  margin-right: 4px;
+  margin-top: 8px;
+}
+
+@media(max-width: 1024px) {
+  .wrapper {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 16px;
+  }
+}
+
+@media(max-width: 700px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
+}
